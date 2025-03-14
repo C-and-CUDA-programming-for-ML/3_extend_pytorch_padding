@@ -1,6 +1,6 @@
-# Exercise three extending Pytorch
+# Exercise three - extending Pytorch
 
-In this exercise you will use setuptools to compile a pytorch extension with PyTorch's `cpp_extension`
+In this exercise, you will use setuptools to compile a Pytorch extension with PyTorch's `cpp_extension`
 module. 
 
 
@@ -36,7 +36,7 @@ Implement this boundary extension mode in the `src/sympad.cpp` file's `_pad_symm
 	- python -m build --no-isolation
 	- pip install dist/sympad-0.0.1-cp312-cp312-linux_x86_64.whl
 
-4. Run your module start the python interpreter with `python`.
+4. To run your module, start the Python interpreter with `python`.
 5. `import torch, sympad` and `import numpy as np`.
 6. Pad a tensor using your own method.
 	- Run `array = np.arange(9).reshape(3,3)`
