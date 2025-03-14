@@ -17,7 +17,7 @@ def test_pad(session):
     session.install("torch")
     session.install("build")
     session.run("python", "-m", "build", "--no-isolation")
-    session.install("dist/sympad-0.0.1.tar.gz")
+    session.install("dist/sympad-0.0.1-cp312-cp312-linux_x86_64.whl")
     session.run("pytest")
 
 
@@ -54,5 +54,4 @@ def mypy(session):
     """Check type hints."""
     session.install("torch")
     session.install("mypy")
-
     session.run("mypy", "--ignore-missing-imports", "test")

@@ -9,7 +9,8 @@ from sympad import _pad_symmetric_1d, pad_symmetric
 @pytest.mark.parametrize("size", [[5], [6], [9], [3]])
 @pytest.mark.parametrize(
     "pad_list",
-    [(1, 4), (2, 2), (3, 3), (4, 1), (5, 0), (0, 5), (0, 0), (1, 1), (3, 1), (1, 3)],
+    [(1, 4), (2, 2), (3, 3), (4, 1), (5, 0),
+     (0, 5), (0, 0), (1, 1), (3, 1), (1, 3)],
 )
 def test_pad_symmetric_1d(size: list[int], pad_list: tuple[int, int]) -> None:
     """Test high-dimensional symetric padding."""
@@ -19,9 +20,11 @@ def test_pad_symmetric_1d(size: list[int], pad_list: tuple[int, int]) -> None:
     assert np.allclose(my_pad.numpy(), np_pad)
 
 
-@pytest.mark.parametrize("size", [[6, 5], [5, 6], [5, 5], [9, 9], [3, 3], [4, 4]])
+@pytest.mark.parametrize("size", [[6, 5], [5, 6], [5, 5],
+                                  [9, 9], [3, 3], [4, 4]])
 @pytest.mark.parametrize("pad_list", [[(1, 4), (4, 1)], [(2, 2), (3, 3)]])
-def test_pad_symmetric_2d(size: list[int], pad_list: list[tuple[int, int]]) -> None:
+def test_pad_symmetric_2d(size: list[int],
+                          pad_list: list[tuple[int, int]]) -> None:
     """Test high-dimensional symetric padding."""
     array = np.random.randint(0, 9, size=size)
     my_pad = pad_symmetric(torch.from_numpy(array), pad_list)
@@ -33,7 +36,8 @@ def test_pad_symmetric_2d(size: list[int], pad_list: list[tuple[int, int]]) -> N
 @pytest.mark.parametrize(
     "pad_list", [[(0, 0), (1, 4), (4, 1)], [(1, 1), (2, 2), (3, 3)]]
 )
-def test_pad_symmetric_3d(size: list[int], pad_list: list[tuple[int, int]]) -> None:
+def test_pad_symmetric_3d(size: list[int],
+                          pad_list: list[tuple[int, int]]) -> None:
     """Test high-dimensional symetric padding."""
     array = np.random.randint(0, 9, size=size)
     my_pad = pad_symmetric(torch.from_numpy(array), pad_list)
@@ -59,7 +63,8 @@ def test_pad_symmetric_small() -> None:
         ((7, 7), (7, 7)),
     ],
 )
-@pytest.mark.parametrize("size", [(3, 3), (4, 4), (2, 2), (1, 1), (2, 1), (2, 1)])
+@pytest.mark.parametrize("size", [(3, 3), (4, 4), (2, 2),
+                                  (1, 1), (2, 1), (2, 1)])
 def test_pad_symmetric_wrap(pad_list, size: tuple[int, int]) -> None:
     """Test high-dimensional symetric padding."""
     array = np.random.randint(0, 9, size=size)

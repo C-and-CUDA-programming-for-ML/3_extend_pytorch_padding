@@ -23,30 +23,32 @@ torch::Tensor _pad_symmetric_1d(torch::Tensor signal, pair<int, int> pad_tuple, 
     // pad recursively until we have enough values.
     if (padl > dimlen || padr > dimlen)
     {
+        // make_pair allows you to call _pad_symmetric_1d.
+        // https://en.cppreference.com/w/cpp/utility/pair/make_pair .
+
         if (padl > dimlen)
         {
-            signal = _pad_symmetric_1d(signal, make_pair(dimlen, 0), dim);
-            padl = padl - dimlen;
+            // TODO: pad as many values as possible and adjust padl.
+
         }
         else
         {
-            signal = _pad_symmetric_1d(signal, make_pair(0, dimlen), dim);
-            padr = padr - dimlen;
+            // TODO: pad as many values as possible and adjust padr.
         }
-        return _pad_symmetric_1d(signal, make_pair(padl, padr), dim);
+        //TODO: Return i.e. with a call of _pad_symmetric_1d instead of signal.
+        return signal;
     }
     else
     {
         vector<torch::Tensor> cat_list = {signal};
-        if (padl > 0)
-        {
-            cat_list.insert(cat_list.begin(), signal.slice(dim, 0, padl).flip(dim));
-        }
-        if (padr > 0)
-        {
-            cat_list.push_back(signal.slice(dim, dimlen-padr, dimlen).flip(dim));
-        }
-        return torch::cat(cat_list, dim);
+        // use i.e. the vectors insert and push_pack methods to implement symmetric padding.
+        // torch tensors provide the slice( dimension, start, stop) function as well as
+        // the flip(dimesnion) functions, which will help you. 
+
+        // TODO: implement me.
+
+        // return a tensor by calling torch::cat instead of signal
+        return signal;
     }
 }
 
@@ -69,15 +71,12 @@ torch::Tensor pad_symmetric(torch::Tensor signal, vector<pair<int, int>> pad_lis
     }
 
     int dims = signal.dim() - 1;
-    reverse(pad_lists.begin(), pad_lists.end());
-    for (int pos = 0; pos < pad_dims; pos++)
-    {
-        int current_axis = dims - pos;
-        signal = _pad_symmetric_1d(signal, pad_lists[pos], current_axis);
-    }
+    //take a look at https://cplusplus.com/reference/algorithm/reverse/ .
+    // loop through the dimension vector and pad the specified dimension using _pad_symmetric_1d.
     return signal;
 }
 
+// This code defines the python bindings for your function.
 PYBIND11_MODULE(sympad, m) {
   m.def("pad_symmetric", &pad_symmetric, "A function that pads a tensor symmetrically");
   m.def("_pad_symmetric_1d", &_pad_symmetric_1d, "A function that pads a tensor symmetrically in 1D.");
