@@ -4,7 +4,7 @@ In this exercise you will use setuptools to compile a pytorch extension with PyT
 module. 
 
 
-The task is to implement `symmetric` padding extension for PyTorch. Symmetric padding, for example, is the default in `pywt` (https://pywavelets.readthedocs.io). PyTorch lacks this functionality. In this exercise, we will provide it.
+The task is to implement `symmetric` padding extension for PyTorch. Symmetric padding, for example, is the default in `pywt` (https://pywavelets.readthedocs.io). PyTorch's [pad](https://pytorch.org/docs/stable/generated/torch.nn.functional.pad.html) lacks this functionality. In this exercise, we will provide it.
 
 ### Testing and Verification
 
